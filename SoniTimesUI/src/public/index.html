@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- PWA Meta Tags -->
+  <meta name="application-name" content="Soni Times">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Soni Times">
+  <meta name="description" content="Browse and shop premium watches and wall clocks from Soni Times collection">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#030213">
+  <meta name="msapplication-TileColor" content="#030213">
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <!-- PWA Icons -->
+  <link rel="apple-touch-icon" href="/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png">
+  <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#030213">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- Splash Screen for iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  
+  <!-- iOS Splash Screens -->
+  <link rel="apple-touch-startup-image" href="/splash/launch-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/launch-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/launch-1242x2208.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/launch-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/splash/launch-1536x2048.png" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+
+  <!-- SEO Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Soni Times - Premium Timepieces">
+  <meta property="og:description" content="Browse and shop premium watches and wall clocks from Soni Times collection">
+  <meta property="og:site_name" content="Soni Times">
+  <meta property="og:url" content="https://sonitimes.app">
+  <meta property="og:image" content="/icons/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Soni Times - Premium Timepieces">
+  <meta name="twitter:description" content="Browse and shop premium watches and wall clocks from Soni Times collection">
+  <meta name="twitter:image" content="/icons/twitter-image.png">
+
+  <title>Soni Times - Premium Timepieces</title>
+
+  <!-- Preload critical resources -->
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="dns-prefetch" href="https://wa.me">
+
+  <style>
+    /* Critical CSS for loading screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    
+    .loading-logo {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #030213;
+      margin-bottom: 1rem;
+    }
+    
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #030213;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .fade-out {
+      opacity: 0;
+      transition: opacity 0.5s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-logo">Soni Times</div>
+    <div class="loading-spinner"></div>
+    <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">Loading premium timepieces...</p>
+  </div>
+
+  <!-- App Root -->
+  <div id="root"></div>
+
+  <!-- Install PWA Banner (Hidden by default) -->
+  <div id="install-banner" style="display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #030213; color: white; padding: 1rem; z-index: 1000;">
+    <div style="display: flex; align-items: center; justify-content: space-between; max-width: 400px; margin: 0 auto;">
+      <div>
+        <div style="font-weight: 600; margin-bottom: 0.25rem;">Install Soni Times</div>
+        <div style="font-size: 0.875rem; opacity: 0.9;">Add to home screen for quick access</div>
+      </div>
+      <div>
+        <button id="install-btn" style="background: white; color: #030213; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; margin-right: 0.5rem;">Install</button>
+        <button id="dismiss-btn" style="background: transparent; color: white; border: 1px solid rgba(255,255,255,0.3); padding: 0.5rem; border-radius: 0.5rem;">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // PWA Install Prompt Logic
+    let deferredPrompt;
+    const installBanner = document.getElementById('install-banner');
+    const installBtn = document.getElementById('install-btn');
+    const dismissBtn = document.getElementById('dismiss-btn');
+
+    // Check if already installed
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('PWA: Install prompt triggered');
+      e.preventDefault();
+      deferredPrompt = e;
+      
+      // Show install banner if not already installed
+      if (!isStandalone && !localStorage.getItem('pwa-dismissed')) {
+        setTimeout(() => {
+          installBanner.style.display = 'block';
+        }, 3000); // Show after 3 seconds
+      }
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log('PWA: Install outcome:', outcome);
+        deferredPrompt = null;
+        installBanner.style.display = 'none';
+      }
+    });
+
+    dismissBtn.addEventListener('click', () => {
+      installBanner.style.display = 'none';
+      localStorage.setItem('pwa-dismissed', 'true');
+    });
+
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('SW registered: ', registration);
+          })
+          .catch((registrationError) => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+
+    // Hide loading screen when app loads
+    window.addEventListener('load', () => {
+      const loadingScreen = document.getElementById('loading-screen');
+      setTimeout(() => {
+        loadingScreen.classList.add('fade-out');
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+        }, 500);
+      }, 1000);
+    });
+
+    // URL parameter handling for deep links
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
+    const screen = urlParams.get('screen');
+
+    if (category || screen) {
+      // Store parameters for the React app to read
+      window.pwaParams = { category, screen };
+    }
+  </script>
+</body>
+</html>
