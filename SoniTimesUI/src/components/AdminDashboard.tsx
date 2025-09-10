@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Plus, Camera, Upload, Trash2, Edit, LogOut, CheckCircle, Download } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { MobileImagePicker } from "./MobileImagePicker";
 import { api } from "../utils/api";
 import { formatRelativeTime, formatPrice } from "../utils/dateUtils";
 
@@ -227,46 +228,22 @@ export function AdminDashboard({
               {/* Image Upload */}
               <div>
                 <label className="block text-sm text-gray-700 mb-2">Product Image *</label>
-                {newProduct.image ? (
-                  <div className="relative">
-                    <ImageWithFallback
-                      src={newProduct.image}
-                      alt="Preview"
-                      className="w-full h-48 object-cover rounded-xl"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setNewProduct(prev => ({ ...prev, image: "" }))}
-                      className="absolute top-2 right-2 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center"
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
-                ) : (
-                  <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center">
-                    <div className="flex flex-col items-center gap-2">
-                      <Upload size={24} className="text-gray-400" />
-                      <p className="text-sm text-gray-500">
-                        {isUploadingImage ? 'Uploading image...' : 'Upload image'}
-                      </p>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageUpload}
-                        className="hidden"
-                        id="image-upload"
-                        disabled={isUploadingImage}
-                      />
-                      <label
-                        htmlFor="image-upload"
-                        className={`px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg cursor-pointer transition-colors ${
-                          isUploadingImage ? 'opacity-50 cursor-not-allowed' : ''
-                        }`}
-                      >
-                        {isUploadingImage ? 'Uploading...' : 'Choose File'}
-                      </label>
-                    </div>
-                  </div>
+                <MobileImagePicker
+                  currentImage={newProduct.image}
+                  onImageSelected={(imageData) => {
+                    setNewProduct(prev => ({ ...prev, image: imageData }));
+                  }}
+                  disabled={isUploadingImage}
+                />
+                {newProduct.image && (
+                  <button
+                    type="button"
+                    onClick={() => setNewProduct(prev => ({ ...prev, image: "" }))}
+                    className="mt-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors flex items-center gap-2"
+                  >
+                    <Trash2 size={16} />
+                    <span>Remove Image</span>
+                  </button>
                 )}
               </div>
 
